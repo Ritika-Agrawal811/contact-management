@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Contacts from "./pages/contact/Contacts";
+import CreateContact from "./pages/contact/createContact/CreateContact";
+import EditContact from "./pages/contact/editContact/EditContact";
+import Maps from "./pages/maps/Maps";
+import Layout from "./components/Layout";
+
+import { Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Contacts />} />
+          <Route path="create" element={<CreateContact />} />
+          <Route path="edit/:id" element={<EditContact />} />
+          <Route path="maps" element={<Maps />} />
+        </Route>
+      </Routes>
+    </QueryClientProvider>
   );
 }
 
